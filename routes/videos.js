@@ -4,12 +4,25 @@ const router = express.Router();
 const cors = require("cors");
 
 router.use(express.json());
+router.use(cors());
+
 const videosJSONFile = path.join(__dirname, "../data/videos.json");
 const videos = require(videosJSONFile);
 
-const { getNewId, writeJSONFile } = require("../helper/helper");
+// const { v4: uuidv4 } = require("uuid");
+const fs = require("node:fs");
 
-router.use(cors());
+// Generate unique id for each video 
+const getNewId = () => {
+  return Date.now().toString(36) + Math.random().toString(36);
+};
+
+// Write to videos.json file
+const writeJSONFile = (filename, content) => {
+  fs.writeFileSync(filename, JSON.stringify(content), "utf8", (error) => {
+    if (error) console.log(error);
+  });
+};
 
 router.get("/", (_req, res) => {
   try {
@@ -19,7 +32,7 @@ router.get("/", (_req, res) => {
   }
 });
 
-// Read
+// Read video id
 router.get("/:videoId", (req, res) => {
   const found = videos.find((video) => video.id === req.params.videoId);
 
@@ -44,14 +57,14 @@ router.post("/", (req, res) => {
   const newVideo = {
     id: getNewId(),
     title: title,
-    channel: "Christmas Kitty",
+    channel: "Cute Cats",
     image: "http://localhost:8080/images/christmas-kitty.jpg",
     description: description,
     views: "0",
     likes: "0",
-    duration: "50:00",
+    duration: "60:00",
     video: "https://project-2-api.herokuapp.com/stream",
-    timestamp: 1668508367,
+    timestamp: new Date().getTime(),
   };
 
   videos.push(newVideo);
