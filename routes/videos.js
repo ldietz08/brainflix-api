@@ -12,7 +12,7 @@ const videos = require(videosJSONFile);
 // const { v4: uuidv4 } = require("uuid");
 const fs = require("node:fs");
 
-// Generate unique id for each video 
+// Generate unique id for each video
 const getNewId = () => {
   return Date.now().toString(36) + Math.random().toString(36);
 };
@@ -60,11 +60,34 @@ router.post("/", (req, res) => {
     channel: "Cute Cats",
     image: "http://localhost:8080/images/christmas-kitty.jpg",
     description: description,
-    views: "0",
-    likes: "0",
+    views: "2,000,8021",
+    likes: "558,453",
     duration: "60:00",
     video: "https://project-2-api.herokuapp.com/stream",
     timestamp: new Date().getTime(),
+    comments: [
+      {
+        id: "823f6f49-db71-49fe-9918-bde8d8da6a4axme",
+        name: "Marco Polo",
+        comment: "Unbelievable.",
+        likes: 0,
+        timestamp: 1630790612005,
+      },
+      {
+        id: "797ca18c-4fd4-4887-b9f4-3ec098e8121dxmr",
+        name: "Albert Einstein",
+        comment: "Amazing video",
+        likes: 1,
+        timestamp: 1630762456006,
+      },
+      {
+        id: "fcc1cbf2-e332-4b49-9643-c08ddd8f85afxmf",
+        name: "Roger Federer",
+        comment: "Wonderful video",
+        likes: 0,
+        timestamp: 1630678260008,
+      },
+    ],
   };
 
   videos.push(newVideo);
