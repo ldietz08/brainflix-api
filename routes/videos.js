@@ -9,7 +9,6 @@ router.use(cors());
 const videosJSONFile = path.join(__dirname, "../data/videos.json");
 const videos = require(videosJSONFile);
 
-// const { v4: uuidv4 } = require("uuid");
 const fs = require("node:fs");
 
 // Generate unique id for each video
@@ -45,7 +44,7 @@ router.get("/:videoId", (req, res) => {
   }
 });
 
-// Create new video
+// Post new video
 router.post("/", (req, res) => {
   const { title, description } = req.body;
   if (!title || !description) {
@@ -60,32 +59,27 @@ router.post("/", (req, res) => {
     channel: "Cute Cats",
     image: "http://localhost:8080/images/christmas-kitty.jpg",
     description: description,
-    views: "2,000,8021",
-    likes: "558,453",
+    views: "2",
+    likes: "2",
     duration: "60:00",
     video: "https://project-2-api.herokuapp.com/stream",
     timestamp: new Date().getTime(),
     comments: [
       {
-        id: "823f6f49-db71-49fe-9918-bde8d8da6a4axme",
-        name: "Marco Polo",
-        comment: "Unbelievable.",
-        likes: 0,
-        timestamp: 1630790612005,
-      },
-      {
-        id: "797ca18c-4fd4-4887-b9f4-3ec098e8121dxmr",
-        name: "Albert Einstein",
-        comment: "Amazing video",
-        likes: 1,
-        timestamp: 1630762456006,
-      },
-      {
-        id: "fcc1cbf2-e332-4b49-9643-c08ddd8f85afxmf",
+        id: getNewId(),
         name: "Roger Federer",
-        comment: "Wonderful video",
+        comment:
+          "What a lovely selection of Christmas tunes! There’s just something about Christmas music that makes me so calm. Thank you for sharing this slice of nostalgia with us all.",
         likes: 0,
-        timestamp: 1630678260008,
+        timestamp: new Date().getTime(),
+      },
+      {
+        id: getNewId(),
+        name: "Betty White",
+        comment:
+          "I thoroughly enjoyed this compilation! It was exactly what I was looking for. I can't wait to share it with my family this Christmas. Wishing everyone a wonderful holiday season.",
+        likes: 0,
+        timestamp: new Date().getTime(),
       },
     ],
   };
@@ -95,5 +89,4 @@ router.post("/", (req, res) => {
 
   res.status(201).json(newVideo);
 });
-
 module.exports = router;
